@@ -26,4 +26,8 @@ public class User {
     private String userName;
     @TableField("pass_word")
     private String passWord;
+    private String tel;
+    private String email;
+    private String role;
+
 }
