@@ -1,0 +1,14 @@
+server:
+  port: 9020
+spring:
+  datasource:
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://106.53.220.93:3306/book?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      username: zinai
+      password: 3Embi8E7TT2TwJx5
+      driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
