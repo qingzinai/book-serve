@@ -1,7 +1,11 @@
 package com.example.bookServe.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +28,7 @@ public class User {
     private Integer id;
     @TableField("user_name")
     private String userName;
-    @TableField("pass_word")
+    //@JSONField(serialize = false) 不返回这个参数的注释
     private String passWord;
     private String tel;
     private String email;

@@ -1,6 +1,7 @@
 package com.example.bookServe.tool;
 
 
+import com.example.bookServe.interceptorConfig.MyException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +24,7 @@ public class JwtTool {
                 .setHeader(header)  //header，可省略
                 .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 1)) //设置过期时间，3秒后过期
+                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60)) //设置过期时间，3秒后过期
                 .compact();
         return jwt;
     }
@@ -38,9 +39,9 @@ public class JwtTool {
                     .getBody();
             System.out.println(body);
         } catch (ExpiredJwtException e) {
-            System.out.println("token已经过期！");
+            throw new MyException("-1","token已经过期!");
         } catch (Exception e) {
-            System.out.println("token不合法！");
+            throw new MyException("-1","token不合法!");
         }
     }
 }

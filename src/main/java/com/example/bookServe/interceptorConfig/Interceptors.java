@@ -1,5 +1,6 @@
 package com.example.bookServe.interceptorConfig;
 
+import com.example.bookServe.tool.JwtTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.method.HandlerMethod;
@@ -32,11 +33,10 @@ public class Interceptors implements AsyncHandlerInterceptor {
         if(!request.getRequestURL().substring(request.getRequestURL().indexOf("9020/")+5).equals("api/user/login")){
             if(request.getHeader("token")==null){
                 throw new MyException("-1", "token失效");
+            }else {
+                new JwtTool().decodeToken(request.getHeader("token"));
             }
         }
-        System.out.println(request.getHeader("content-type"));
-        System.out.println(request.getRequestURL().substring(request.getRequestURL().indexOf("9020/")+5));
-        System.out.println(request.getRequestURL());
         System.out.println("进入拦截器了");
         //中间写逻辑代码，比如判断是否登录成功，失败则返回false
         return true;
@@ -44,8 +44,6 @@ public class Interceptors implements AsyncHandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-
-
         System.out.println("controller 执行完了");
     }
 
@@ -54,9 +52,6 @@ public class Interceptors implements AsyncHandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         Long begin = (Long)threadLocal.get().get("begin");
         long l = System.currentTimeMillis() - begin;
-
-        System.out.println(l+"ms");
-        System.out.println("我获取到了一个返回的结果：" + response);
         System.out.println("请求结束了");
     }
 }
